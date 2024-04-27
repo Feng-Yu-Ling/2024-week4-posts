@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "e0ab8935-5b65-475b-b2a4-41adc7dc5d7a",
+		"name": "posts-render-week4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33251865"
+	},
+	"item": [
+		{
+			"name": "取得所有貼文",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://two024-week4-posts.onrender.com/posts?timeSort=asc&q=刷牙",
+					"protocol": "https",
+					"host": [
+						"two024-week4-posts",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "timeSort",
+							"value": "asc"
+						},
+						{
+							"key": "q",
+							"value": "刷牙"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增一筆貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"662d190573a1c0a22fcf2534\",\r\n    \"content\":\"今天要刷牙3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://two024-week4-posts.onrender.com/posts",
+					"protocol": "https",
+					"host": [
+						"two024-week4-posts",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除一筆貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://two024-week4-posts.onrender.com/posts/662d1fd14c48188f34058b40",
+					"protocol": "https",
+					"host": [
+						"two024-week4-posts",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"662d1fd14c48188f34058b40"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除全部貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://two024-week4-posts.onrender.com/posts",
+					"protocol": "https",
+					"host": [
+						"two024-week4-posts",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "更新一筆貼文",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"662d190573a1c0a22fcf2534\",\r\n    \"content\":\"今天不洗澡\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://two024-week4-posts.onrender.com/posts/662d1fd14c48188f34058b40",
+					"protocol": "https",
+					"host": [
+						"two024-week4-posts",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"662d1fd14c48188f34058b40"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
