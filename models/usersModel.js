@@ -10,11 +10,15 @@ Schema定義MongoDB文件的結構與規則：
 const userSchema = new mongoose.Schema({
     name: {
       type: String,
+      // 設置trim:true以去除前後空格
+      trim: true,
       // 透過陣列來顯示回饋訊息
       required: [true, '請輸入您的名字']
     },
     email: {
       type: String,
+      // 設置trim:true以去除前後空格
+      trim: true,
       // 透過陣列來顯示回饋訊息
       required: [true, '請輸入您的 Email'],
       // 表示email欄位的值必須是唯一的，不允許重複

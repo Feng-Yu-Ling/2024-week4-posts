@@ -31,8 +31,8 @@ router.get('/', async function(req, res, next) {
     }).sort(timeSort);
     // asc 遞增(由小到大，由舊到新) createdAt ; 
     // desc 遞減(由大到小、由新到舊) "-createdAt";
-
-    res.status(200).json({
+    // 在express若不指定狀態碼，預設是200，所以可以省略status(200)
+    res.json({
       posts
   })
   }
@@ -66,13 +66,23 @@ router.post('/', async function(req, res, next) {
 // 設置路由器以刪除所有貼文
 router.delete('/', async function(req, res, next) {
   try{
-      // 等待資料庫刪除完成，因為這是一個異步操作，會返回promise，所以需要加await
-      await Post.deleteMany({});
-      const posts = await Post.find();
-      res.status(200).json({
-          "status":"success",
-          posts
-      })
+      // 使用req.originalUrl確保不是無意中匹配到此路由，記得要寫完整路由
+      if(req.originalUrl === "/posts"){
+        // 等待資料庫刪除完成，因為這是一個異步操作，會返回promise，所以需要加await
+        await Post.deleteMany({});
+        const posts = await Post.find();
+        // 在express若不指定狀態碼，預設是200，所以可以省略status(200)
+        res.json({
+            "status":"success",
+            posts
+        })
+      }
+      else{
+        res.status(400).json({
+          "status":"false",
+          "message":"刪除全部的路由為'posts'而不是'posts/'，這是避免刪除單筆的錯誤操作"
+        })
+      }
   }
   catch(error){
       res.status(500).json({
@@ -96,7 +106,8 @@ router.delete('/:id', async function(req, res, next) {
           })
       }
       else{
-          res.status(200).json({
+          // 在express若不指定狀態碼，預設是200，所以可以省略status(200)
+          res.json({
               "status":"success",
               data:null
           })
@@ -118,19 +129,19 @@ router.patch('/:id', async function(req, res, next) {
       const id = req.params.id;
       // 等待資料庫更新資料，因為這是一個異步操作，會返回promise，所以需要加await
       // 在findByIdAndUpdate()加入第三個參數 {runValidators:true}讓它也執行Schema驗證
-      const searchResult = await Post.findByIdAndUpdate(id, data, {runValidators:true});
-      if(!searchResult){
+      // 在findByIdAndUpdate()加入第三個參數 {new:true}讓他回傳更新後的document而不是原始document
+      const updatePost = await Post.findByIdAndUpdate(id, data, {runValidators:true, new:true});
+      if(!updatePost){
           res.status(404).json({
               "status":"false",
               "message":"無此 post ID"
           })
       }
       else{
-          // 等待資料庫回傳結果，因為這是一個異步操作，會返回promise，所以需要加await
-          const updatedPost = await Post.findById(id);
-          res.status(200).json({
+          // 在express若不指定狀態碼，預設是200，所以可以省略status(200)
+          res.json({
               "status":"success",
-              updatedPost
+              updatePost
           })
       }
   }

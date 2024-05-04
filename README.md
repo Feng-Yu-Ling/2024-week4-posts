@@ -11,3 +11,11 @@
 * 藉由環境變數隱藏敏感資訊
 * 部屬至Render託管
 * 提供POSTMAN
+### 更新內容
+* 提供config.env.example讓其他開發者知道需要載入哪些環境變數
+* 移除mongoose所添加的__v (version key)
+* 針對成功的操作，express預設給予200狀態碼，不須手動設定
+* findByIdAndUpdate的參數加上new:true可回傳更新後的資料
+* 對刪除全部貼文的路由進行保護處理，避免刪除單筆貼文的錯誤操作
+* 對schema的必要欄位添加trim:true避免輸入多個空格逃過驗證
+* 在app.js加上404的相關程式以捕捉輸入錯誤路由(無此網站路由)

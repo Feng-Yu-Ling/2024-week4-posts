@@ -11,6 +11,8 @@ const postSchema = new mongoose.Schema(
     {
       content: {
         type: String,
+        // 設置trim:true以去除前後空格
+        trim: true,
         // 透過陣列來顯示回饋訊息
         required: [true, 'Content 未填寫']
       },
@@ -36,6 +38,8 @@ const postSchema = new mongoose.Schema(
           type: mongoose.Schema.ObjectId,
           // ref表示這個ObjectId引用自User model的document
           ref: "User", // 注意大小寫有差異
+          // 設置trim:true以去除前後空格
+          trim: true,
           // 透過陣列來顯示回饋訊息
           required: [true, '貼文姓名未填寫']
       },
@@ -43,7 +47,9 @@ const postSchema = new mongoose.Schema(
           type:Number,
           default:0
         }
-    }
+    },
+    // 移除欄位__v (version key)
+    {versionKey: false}
 );
 // 在mongoose中，model()允許將已定義好的schema整合為可操作的模型，具有與MongoDB互動的多種方法
 // 習慣上model會用大寫
